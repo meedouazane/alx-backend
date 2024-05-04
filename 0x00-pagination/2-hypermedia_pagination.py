@@ -62,7 +62,7 @@ class Server:
         next_page = page + 1
         prev_page = page - 1
         return {
-            "page_size": page_size if self.get_page(page, page_size) else 0,
+            "page_size": len(self.get_page(page, page_size)),
             "page": page,
             "data": self.get_page(page, page_size),
             "next_page": next_page if next_page < total_page else None,
