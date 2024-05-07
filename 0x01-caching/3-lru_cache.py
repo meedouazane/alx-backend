@@ -17,17 +17,19 @@ class LRUCache(BaseCaching):
         """
         if key is None or item is None:
             return
-        if key in self.cache_data:
-            self.cache_data.move_to_end(key)
-        else:
+        if key not in self.cache_data:
             if BaseCaching.MAX_ITEMS <= len(self.cache_data):
-                self.cache_data.popitem(last=False)
-                print(f'DISCARD: {key}')
-        self.cache_data[key] = item
+                key_lru, value = self.cache_data.popitem(True)
+                print(f'DISCARD: {key_lru}')
+            self.cache_data[key] = item
+            self.cache_data.move_to_end(key, last=False)
+        else:
+            self.cache_data[key] = item
 
     def get(self, key):
         """ Get an item by key
         """
         if key is None or key not in self.cache_data:
             return None
+        self.cache_data.move_to_end(key, last=False)
         return self.cache_data.get(key)
