@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ Basic Flask app """
-from datetime import UTC
+from datetime import timezone
 from flask import Flask, render_template
 from flask_babel import Babel
 
@@ -11,9 +11,11 @@ class Config:
     """ Class Config """
 
     LANGUAGES = ["en", "fr"]
+    DEFAULT_LOCALE = 'en'
+    DEFAULT_TIMEZONE = timezone.utc
 
 
-bable = Babel(app, locale_selector=Config.LANGUAGES, timezone_selector=UTC)
+bable= Babel(app, locale_selector=Config.DEFAULT_LOCALE, timezone_selector=Config.DEFAULT_TIMEZONE)
 
 
 @app.route('/')
