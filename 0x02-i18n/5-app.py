@@ -25,7 +25,7 @@ babel = Babel(app)
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> str:
     """ determine the best match with our supported languages"""
     locale = request.args.get('locale')
     if locale in Config.LANGUAGES:
@@ -33,7 +33,7 @@ def get_locale():
     return request.accept_languages.best_match(Config.LANGUAGES)
 
 
-def get_user():
+def get_user() -> str:
     """ returns a user dictionary or None """
     login_as = request.args.get('login_as')
     if not login_as:
@@ -42,13 +42,13 @@ def get_user():
 
 
 @app.before_request
-def before_request():
+def before_request() -> None:
     """ executed before all other functions """
     g.user = get_user()
 
 
 @app.route('/')
-def index():
+def index() -> str:
     """ First Route"""
     return render_template('5-index.html')
 
