@@ -32,7 +32,7 @@ def get_locale():
         return locale
     if g.user and g.user['locale'] in Config.LANGUAGES:
         return g.user['locale']
-    header = request.headers.get('locale')
+    header = request.headers.get('locale', '')
     if header in Config.LANGUAGES:
         return header
     return request.accept_languages.best_match(Config.LANGUAGES)
